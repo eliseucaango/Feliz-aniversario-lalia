@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Lalia · Aniversário Eterno ✨ Cinema & Memórias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;800;900&family=Montserrat:wght@300;400;500;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0c15;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* ===== SCROLL PROGRESS ===== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(90deg, #FFB347, #FF6A5C, #FFD166);
+      z-index: 1000;
+      transition: width 0.1s ease;
+      box-shadow: 0 0 12px #ff9f4a;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(ellipse at 30% 40%, #1a1f2e, #05070c);
+      z-index: 2;
+    }
+
+    .hero-content {
+      animation: floatIn 1.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      padding: 2rem;
+    }
+
+    @keyframes floatIn {
+      0% { opacity: 0; transform: translateY(60px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 12vw, 6.5rem);
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      background: linear-gradient(135deg, #FFE6B0, #FFB347, #FF6A5C, #FFD966);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientShift 5s ease infinite;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: rgba(255,245,220,0.9);
+      margin-top: 0.5rem;
+      letter-spacing: 1px;
+      font-weight: 300;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      background: rgba(255,200,150,0.2);
+      backdrop-filter: blur(8px);
+      padding: 0.6rem 1.2rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #ffcf9a;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(12px); }
+    }
+
+    /* ===== SESSIONS (5 seções para fotos) ===== */
+    .session {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 4rem 2rem;
+      transition: all 0.2s ease;
+      will-change: transform, opacity, background;
+    }
+
+    .session-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+    }
+
+    .card-photo {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(20, 25, 45, 0.55);
+      backdrop-filter: blur(18px);
+      border-radius: 3rem;
+      border: 1px solid rgba(255, 200, 120, 0.4);
+      box-shadow: 0 30px 50px rgba(0,0,0,0.4), 0 0 30px rgba(255,180,80,0.2);
+      padding: 2rem;
+      transition: transform 0.5s ease, box-shadow 0.4s;
+    }
+
+    .session:hover .card-photo {
+      transform: scale(1.01);
+      box-shadow: 0 40px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,160,80,0.3);
+    }
+
+    .session-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: #FFE2B5;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .session-title span {
+      font-size: 2.5rem;
+    }
+
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0 1rem;
+    }
+
+    .photo-item {
+      flex: 1 1 260px;
+      min-width: 220px;
+      border-radius: 2rem;
+      overflow: hidden;
+      background: rgba(0,0,0,0.3);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease, filter 0.4s;
+    }
+
+    .photo-item:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+    }
+
+    .photo-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(1.05) contrast(1.05);
+    }
+
+    .photo-caption {
+      padding: 1rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,25,55,0.7));
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #ffddb0;
+      backdrop-filter: blur(4px);
+    }
+
+    .session-desc {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      color: #ddd2c0;
+      font-style: italic;
+      border-top: 1px dashed rgba(255,200,150,0.4);
+      padding-top: 1rem;
+    }
+
+    /* ===== VIDEO SECTION ===== */
+    .video-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 4rem 2rem;
+    }
+
+    .video-card {
+      position: relative;
+      z-index: 10;
+      max-width: 1000px;
+      width: 100%;
+      background: rgba(20, 25, 45, 0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 3rem;
+      border: 1px solid rgba(255, 180, 100, 0.5);
+      box-shadow: 0 30px 50px rgba(0,0,0,0.5), 0 0 40px rgba(255,140,80,0.3);
+      padding: 2rem;
+      transition: transform 0.4s;
+    }
+
+    .video-card:hover {
+      transform: scale(1.01);
+    }
+
+    .video-title {
+      font-size: 2.2rem;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      color: #FFE2B5;
+      margin-bottom: 1.5rem;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1.5rem;
+    }
+
+    .video-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .video-btn {
+      background: linear-gradient(135deg, #FFB347, #FF6A5C);
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .video-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(255,100,80,0.5);
+    }
+
+    /* ===== ESCRITURA COM ANIMAÇÃO (RACKER WRITING) ===== */
+    .letter-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 4rem 2rem;
+      background: radial-gradient(ellipse at center, #0f0c1a, #030207);
+    }
+
+    .letter-card {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(10, 8, 20, 0.75);
+      backdrop-filter: blur(16px);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(255, 200, 120, 0.5);
+      padding: 3rem 2.5rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 30px rgba(255,150,70,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #FFB347, #FF6A5C, #FFD166);
+    }
+
+    .typewriter-container {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      line-height: 1.5;
+      color: #FFE8C7;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      margin-left: 4px;
+      background: #FFB347;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .signature {
+      margin-top: 2rem;
+      text-align: right;
+      font-size: 1.4rem;
+      color: #FFB347;
+      opacity: 0;
+      transition: opacity 1s ease;
+      font-family: 'Caveat', cursive;
+    }
+
+    .signature.show {
+      opacity: 1;
+    }
+
+    /* ===== MODAL FOTO ===== */
+    .modal-photo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .modal-photo.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content-img {
+      max-width: 85vw;
+      max-height: 85vh;
+      border-radius: 2rem;
+      box-shadow: 0 0 40px rgba(255,180,80,0.6);
+      transform: scale(0.95);
+      transition: transform 0.25s;
+    }
+    .modal-photo.active .modal-content-img {
+      transform: scale(1);
+    }
+    .close-modal-x {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      font-size: 3rem;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 300;
+      transition: 0.2s;
+    }
+    .close-modal-x:hover {
+      transform: scale(1.1);
+      color: #ffb347;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-message {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(to top, #030207, #0f1220);
+      color: #ffdeb0;
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    /* floating hearts */
+    .floating-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      font-size: 1.2rem;
+      animation: floatHeart 3s ease-out forwards;
+    }
+    @keyframes floatHeart {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+    }
+
+    @media (max-width: 760px) {
+      .photo-grid { gap: 1rem; }
+      .photo-item { min-width: 160px; }
+      .photo-item img { height: 200px; }
+      .card-photo { padding: 1.2rem; }
+      .typewriter-container { font-size: 1.5rem; }
+      .letter-card { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgressBar"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>✨ LALIA,  <br>FELIZ ANIVERSÁRIO ✨</h1>
+    <p>Cada página virada, uma lembrança brilhante<br>Role para descobrir momentos inesquecíveis</p>
+  </div>
+  <div class="scroll-hint" id="scrollHint">
+    ↓ role para viajar na memória ↓
+  </div>
+</section>
+
+<!-- 5 SESSÕES para FOTOS -->
+<div id="sessions-container">
+  <section class="session" data-session="0">
+    <div class="session-bg"></div>
+    <div class="card-photo">
+      <div class="session-title"><span>🌸</span> Sorrisos & Amizade <span>🌸</span></div>
+      <div class="photo-grid" id="gallery-0">
+        <div class="photo-item"><img src="amigos/SaveGram.App_545260457_18100136533717493_3234011893317592553_n.jpg" alt="Momento especial"><div class="photo-caption">Nosso primeiro rolê</div></div>
+        <div class="photo-item"><img src="amigos/SaveGram.App_629636972_18115966207717493_1340870025797572720_n.jpg" alt="Momento especial"><div class="photo-caption">Gargalhadas infinitas</div></div>
+        <div class="photo-item"><img src="amigos/SaveGram.App_627014149_18115966192717493_710404386620635033_n.jpg" alt="Momento especial"><div class="photo-caption">Domingo perfeito</div></div>
+      </div>
+      <div class="session-desc">💖 Sua luz ilumina tudo — essas fotos capturam sua essência radiante.</div>
+    </div>
+  </section>
+
+  <section class="session" data-session="1">
+    <div class="session-bg"></div>
+    <div class="card-photo">
+      <div class="session-title"><span>🌻</span> Aventuras & Natureza <span>🌻</span></div>
+      <div class="photo-grid" id="gallery-1">
+        <div class="photo-item"><img src="amigos/SaveGram.App_630064198_18115966051717493_6562305933765490238_n.jpg" alt="Natureza"><div class="photo-caption">Trilha dos sonhos</div></div>
+        <div class="photo-item"><img src="amigos/SaveGram.App_629636972_18115966207717493_1340870025797572720_n.jpg" alt="Natureza"><div class="photo-caption">Pôr do sol mágico</div></div>
+        <div class="photo-item"><img src="amigos/ww.jpg" alt="Natureza"><div class="photo-caption">Flores e você</div></div>
+      </div>
+      <div class="session-desc">🌿 Cada aventura  é poesia em movimento.</div>
+    </div>
+  </section>
+
+  <section class="session" data-session="2">
+    <div class="session-bg"></div>
+    <div class="card-photo">
+      <div class="session-title">Momentos Aleatorios</div>
+      <div class="photo-grid" id="gallery-2">
+        <div class="photo-item"><img src="amigos/IMG_3392.jpg" alt="Aconchego"><div class="photo-caption">Tarde chuvosa</div></div>
+        <div class="photo-item"><img src="amigos/IMG_3409.jpg" alt="Aconchego"><div class="photo-caption">Nosso cantinho</div></div>
+        <div class="photo-item"><img src="amigos/IMG_5292.jpg" alt="Aconchego"><div class="photo-caption">Sorriso caseiro</div></div>
+      </div>
+      <div class="session-desc">✨ Seu abraço é o melhor lugar do mundo.</div>
+    </div>
+  </section>
+
+  <section class="session" data-session="3">
+    <div class="session-bg"></div>
+    <div class="card-photo">
+      <div class="session-title"><span>🎂</span> Festas & Celebrações <span>🎉</span></div>
+      <div class="photo-grid" id="gallery-3">
+        <div class="photo-item"><img src="amigos/FESTAS/IMG_1263.jpg" alt="Festa"><div class="photo-caption">Aniversário inesquecível</div></div>
+        <div class="photo-item"><img src="amigos/FESTAS/IMG_2602.jpg" alt="Festa"><div class="photo-caption">Bolos e velas</div></div>
+        <div class="photo-item"><img src="amigos/FESTAS/IMG_9241.jpg" alt="Festa"><div class="photo-caption">Amigos especiais</div></div>
+      </div>
+      <div class="session-desc">🎈 Cada celebração fica eterna quando você está presente.</div>
+    </div>
+  </section>
+
+  <section class="session" data-session="4">
+    <div class="session-bg"></div>
+    <div class="card-photo">
+      <div class="session-title"><span>✨</span> Sonhos & Horizontes <span>✨</span></div>
+      <div class="photo-grid" id="gallery-4">
+        <div class="photo-item"><img src="amigos/Nova pasta/SaveGram.App_650184052_18085828037216048_919691427107206545_n.jpg" alt="Festa"><div class="photo-caption">Aniversário inesquecível</div></div>
+        <div class="photo-item"><img src="amigos/Nova pasta/SaveGram.App_650876993_18086747627240146_4230890810289476760_n.jpg" alt="Festa"><div class="photo-caption">Bolos e velas</div></div>
+        <div class="photo-item"><img src="amigos/Nova pasta/SaveGram.App_450428105_18057892534717493_3646948067197742091_n.jpg" alt="Festa"><div class="photo-caption">Amigos especiais</div></div>
+      </div>
+      <div class="session-desc">🌟 Que seus sonhos brilhem mais forte a cada dia. Te amamos, Lalia!</div>
+    </div>
+  </section>
+</div>
+
+<!-- SEÇÃO DE VÍDEO -->
+<section class="video-section" id="videoSection">
+  <div class="video-card">
+    <div class="video-title">🎬 Memórias em Movimento 🎬</div>
+    <div class="video-container">
+      <video id="birthdayVideo" poster="video/0330.mp4" controls>
+        <source src="video/0330.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo. Mas a memória permanece!
+      </video>
+    </div>
+    <div class="video-controls">
+      <button class="video-btn" id="playVideoBtn">▶ Assistir</button>
+      <button class="video-btn" id="pauseVideoBtn">⏸ Pausar</button>
+    </div>
+    <div class="session-desc" style="margin-top: 1rem;">🎥 Cada frame, uma lembrança eterna ao seu lado.</div>
+  </div>
+</section>
+
+<!-- SEÇÃO ESCRITURA COM ANIMAÇÃO DE RACKER (TIPO MÁQUINA DE ESCREVER) -->
+<section class="letter-section">
+  <div class="letter-card">
+    <div class="typewriter-container">
+      <div id="writingText"></div>
+      <span class="cursor" id="cursor"></span>
+    </div>
+    <div class="signature" id="signature">— Sempre de olho ✨</div>
+  </div>
+</section>
+
+<div class="footer-message">
+  💖 Feliz Aniversário, Lalia! Que a vida te devolva em sorrisos tudo que você espalha. 💖
+</div>
+
+<!-- Modal foto -->
+<div id="photoModal" class="modal-photo">
+  <button class="close-modal-x">&times;</button>
+  <img class="modal-content-img" id="modalImage" src="" alt="Momento expandido">
+</div>
+
+<script>
+  // ======================= SCROLL DINÂMICO =======================
+  const sessions = document.querySelectorAll('.session');
+  const progressBar = document.getElementById('scrollProgressBar');
+  const body = document.body;
+  
+  const colorSchemes = [
+    { bgStart: '#0f0c1f', bgEnd: '#1a162f', accent: '#FFB347', glow: 'rgba(255,180,80,0.3)' },
+    { bgStart: '#081c1a', bgEnd: '#12302c', accent: '#7BC9A2', glow: 'rgba(123,201,162,0.3)' },
+    { bgStart: '#2a1a2c', bgEnd: '#3e2a3f', accent: '#E9B56E', glow: 'rgba(233,181,110,0.3)' },
+    { bgStart: '#2b1e2f', bgEnd: '#462c44', accent: '#FF8A5C', glow: 'rgba(255,138,92,0.4)' },
+    { bgStart: '#0f1b2e', bgEnd: '#142a44', accent: '#FDAE6B', glow: 'rgba(253,174,107,0.4)' }
+  ];
+
+  function updateDynamicBackground() {
+    let scrollY = window.scrollY;
+    let maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    let progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+    progressBar.style.width = (progress * 100) + '%';
+    
+    let activeIndex = 0;
+    for (let i = 0; i < sessions.length; i++) {
+      const rect = sessions[i].getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.6 && rect.bottom >= window.innerHeight * 0.3) {
+        activeIndex = i;
+        break;
+      }
+    }
+    const scheme = colorSchemes[activeIndex];
+    if (scheme) {
+      body.style.background = `radial-gradient(ellipse at 50% 30%, ${scheme.bgStart}, ${scheme.bgEnd})`;
+      body.style.transition = 'background 0.6s cubic-bezier(0.2, 0.9, 0.4, 1)';
+      document.querySelectorAll('.card-photo').forEach(card => {
+        card.style.borderColor = `${scheme.accent}80`;
+        card.style.boxShadow = `0 20px 40px rgba(0,0,0,0.4), 0 0 25px ${scheme.glow}`;
+      });
+    }
+  }
+  
+  function animateOnScroll() {
+    sessions.forEach(session => {
+      const rect = session.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight - 100 && rect.bottom > 100;
+      if (isVisible) {
+        session.style.opacity = '1';
+        session.style.transform = 'translateY(0)';
+      } else {
+        session.style.opacity = '0.7';
+        session.style.transform = 'translateY(8px)';
+      }
+    });
+  }
+  
+  sessions.forEach(session => {
+    session.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    session.style.opacity = '0.7';
+    session.style.transform = 'translateY(8px)';
+  });
+  
+  window.addEventListener('scroll', () => {
+    updateDynamicBackground();
+    animateOnScroll();
+  });
+  window.addEventListener('resize', updateDynamicBackground);
+  updateDynamicBackground();
+  setTimeout(animateOnScroll, 200);
+  
+  // ======================= MODAL FOTO =======================
+  const modal = document.getElementById('photoModal');
+  const modalImg = document.getElementById('modalImage');
+  const closeModalBtn = document.querySelector('.close-modal-x');
+  
+  function openModal(imgSrc) {
+    modalImg.src = imgSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function photoClickHandler(e) {
+    e.stopPropagation();
+    openModal(this.src);
+    createFloatingHearts(e.clientX, e.clientY);
+  }
+  function bindPhotoClickEvents() {
+    document.querySelectorAll('.photo-item img').forEach(img => {
+      img.removeEventListener('click', photoClickHandler);
+      img.addEventListener('click', photoClickHandler);
+    });
+  }
+  function createFloatingHearts(x, y) {
+    for (let i = 0; i < 10; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = ['✨','💖','🌸','🎂','💫','⭐','🌹','🎈'][Math.floor(Math.random()*8)];
+      heart.style.left = (x + (Math.random() - 0.5) * 50) + 'px';
+      heart.style.top = (y + (Math.random() - 0.5) * 40) + 'px';
+      heart.style.fontSize = (Math.random() * 20 + 12) + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2800);
+    }
+  }
+  document.getElementById('scrollHint').addEventListener('click', () => {
+    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+  });
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  closeModalBtn.addEventListener('click', closeModal);
+  bindPhotoClickEvents();
+  
+  // ======================= CONTROLES DE VÍDEO =======================
+  const video = document.getElementById('birthdayVideo');
+  const playBtn = document.getElementById('playVideoBtn');
+  const pauseBtn = document.getElementById('pauseVideoBtn');
+  if (video && playBtn && pauseBtn) {
+    playBtn.addEventListener('click', () => video.play());
+    pauseBtn.addEventListener('click', () => video.pause());
+  }
+  
+  // ======================= ESCRITURA COM ANIMAÇÃO (RACKER WRITING) =======================
+  const fullText = "oi lalia, yoane nas teclas Gostaria de desejar te um feliz aniversario e que Deus continue e continue e continue infinitas vezes... abençoando. Não continue a ser essa menina que vc é... mude de comportamento já te falei na sala hj mas em fim És inspiração para todos nos, incluido a tua familia e amigos! todos nos somos passageros e eu gostei de estar presente em alguns dos teu momentos as palavras são poucas para te  descrever então aproveite o teu dia da melhor forma e estarei do seu lado até aonde vc me permiter   sempre estarei de olho em ti! feliz aniversario gafanhota. by yoane,Eliseu ";
+  
+  const writingDiv = document.getElementById('writingText');
+  const signatureSpan = document.getElementById('signature');
+  let i = 0;
+  
+  function typeWriter() {
+    if (i < fullText.length) {
+      writingDiv.innerHTML += fullText.charAt(i);
+      i++;
+      setTimeout(typeWriter, 100);
+    } else {
+      document.getElementById('cursor').style.display = 'none';
+      signatureSpan.classList.add('show');
+      // confetes finais ao terminar a escritura
+      setTimeout(() => {
+        createFloatingHearts(window.innerWidth/2, window.innerHeight/2 + 100);
+        for(let s=0; s<50; s++) {
+          const conf = document.createElement('div');
+          conf.style.position = 'fixed';
+          conf.style.width = Math.random() * 10 + 5 + 'px';
+          conf.style.height = Math.random() * 10 + 5 + 'px';
+          conf.style.background = `hsl(${Math.random() * 60 + 20}, 80%, 65%)`;
+          conf.style.left = (window.innerWidth/2 + (Math.random()-0.5)*300) + 'px';
+          conf.style.top = (window.innerHeight-100) + 'px';
+          conf.style.borderRadius = '50%';
+          conf.style.pointerEvents = 'none';
+          conf.style.zIndex = '999';
+          conf.style.animation = 'floatHeart 2s ease-out forwards';
+          document.body.appendChild(conf);
+          setTimeout(() => conf.remove(), 2000);
+        }
+      }, 200);
+    }
+  }
+  
+  // Intersection Observer para iniciar animação quando a seção da carta aparecer
+  const letterSection = document.querySelector('.letter-section');
+  let animationStarted = false;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !animationStarted) {
+        animationStarted = true;
+        typeWriter();
+      }
+    });
+  }, { threshold: 0.3 });
+  if (letterSection) observer.observe(letterSection);
+  
+  // Efeitos extras e corações periódicos
+  setInterval(() => {
+    if (Math.random() > 0.75) {
+      const randX = Math.random() * window.innerWidth;
+      const randY = window.scrollY + Math.random() * window.innerHeight;
+      createFloatingHearts(randX, randY);
+    }
+  }, 3500);
+  
+  // Efeito de brilho nos cards
+  document.querySelectorAll('.card-photo').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xPercent = (x / rect.width) * 100;
+      const yPercent = (y / rect.height) * 100;
+      card.style.background = `radial-gradient(circle at ${xPercent}% ${yPercent}%, rgba(255,200,150,0.15), rgba(0,0,0,0.2))`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.background = ''; });
+  });
+  
+  console.log('✨ Site de aniversário com vídeo e escritura animada para Lalia! ✨');
+</script>
+</body>
+</html>
